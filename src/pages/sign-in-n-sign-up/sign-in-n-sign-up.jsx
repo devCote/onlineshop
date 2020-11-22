@@ -21,7 +21,6 @@ const SignInAndSignUpPage = ({ isLoading }) => {
 
   return (
     <div className="sign-in-n-sign-up">
-      {console.log(currentStatus)}
       {currentStatus ? (
         <>
           <SignIn />
@@ -39,7 +38,5 @@ const SignInAndSignUpPage = ({ isLoading }) => {
 const mapStateToProps = createStructuredSelector({
   isLoading: state => !userAuthificationLoaded(state),
 });
-
-console.log(mapStateToProps);
 
 export default connect(mapStateToProps)(SignInAndSignUpPage);
