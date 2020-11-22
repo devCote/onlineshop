@@ -3,10 +3,11 @@ import './sign-up.scss';
 
 import FormInput from '../form-input/form-input';
 import CustomButton from '../custom-button/custom-button';
+import { signUpStart } from '../../redux/user/user.actions';
+// import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { connect } from 'react-redux';
 
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
-
-export default class SignIn extends React.Component {
+class SignIn extends React.Component {
   constructor() {
     super();
 
@@ -18,34 +19,34 @@ export default class SignIn extends React.Component {
     };
   }
 
-  handleSubmit = async (event) => {
+  handleSubmit = async event => {
     event.preventDefault();
 
     const { displayName, email, password, confirmPassword } = this.state;
-
+    const { signUpStart } = this.props;
     if (password !== confirmPassword) {
       alert("passwords don't match");
       return;
     }
-
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserProfileDocument(user, { displayName });
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
-    } catch (error) {
-      alert(error);
-    }
+    signUpStart(email, password, displayName);
+    //   try {
+    //     const { user } = await auth.createUserWithEmailAndPassword(
+    //       email,
+    //       password
+    //     );
+    //     await createUserProfileDocument(user, { displayName });
+    //     this.setState({
+    //       displayName: '',
+    //       email: '',
+    //       password: '',
+    //       confirmPassword: '',
+    //     });
+    //   } catch (error) {
+    //     alert(error);
+    //   }
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
@@ -95,3 +96,10 @@ export default class SignIn extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  signUpStart: (email, password, displayName) =>
+    dispatch(signUpStart({ email, password, displayName })),
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);
