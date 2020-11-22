@@ -1,12 +1,12 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const SpinnerOverlay = styled.div`
   height: 60vh;
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const SpinnerContainer = styled.div`
   display: inline-block;
@@ -27,4 +27,4 @@ export const SpinnerContainer = styled.div`
       -webkit-transform: rotate(360deg);
     }
   }
-`
+`;

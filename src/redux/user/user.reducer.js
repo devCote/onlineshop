@@ -3,18 +3,24 @@ import userActionsTypes from './user.types';
 const INITIAL_STATE = {
   currentUser: null,
   error: null,
-  displayName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
+  isLoading: false,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case userActionsTypes.SIGN_UP_START:
+    case userActionsTypes.GOOGLE_SIGN_IN_START:
+    case userActionsTypes.EMAIL_SIGN_IN_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
     case userActionsTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
+        isLoading: false,
         error: null,
       };
     case userActionsTypes.SIGN_OUT_SUCCESS:
@@ -27,11 +33,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: action.payload,
-        displayName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-
         error: null,
       };
 
@@ -40,6 +41,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case userActionsTypes.SIGN_UP_FAILURE:
       return {
         ...state,
+        isLoading: false,
         error: action.payload,
       };
 

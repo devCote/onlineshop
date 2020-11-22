@@ -23,7 +23,7 @@ const Header = ({ currentUser, hidden, signOutStart }) => (
         CONTACT
       </Link>
       {currentUser ? (
-        <div className="option">{currentUser.displayName}</div>
+        <div className="option current-user">{currentUser.displayName}</div>
       ) : null}
       {currentUser ? (
         <div className="option" onClick={signOutStart}>

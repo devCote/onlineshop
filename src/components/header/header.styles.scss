@@ -25,6 +25,14 @@
       &:hover {
         text-decoration: underline;
       }
+
+      &.current-user {
+        cursor: default;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
   }
 }
